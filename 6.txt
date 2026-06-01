@@ -1,0 +1,67 @@
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_breast_cancer
+from sklearn.cluster import KMeans
+
+# Load Wisconsin Breast Cancer dataset
+data = load_breast_cancer()
+
+# Features
+x = data.data
+
+# Create K-Means model
+kmeans = KMeans(n_clusters=2, random_state=42)
+
+# Train model
+kmeans.fit(x)
+
+# Cluster labels
+labels = kmeans.labels_
+
+# Cluster centers
+centers = kmeans.cluster_centers_
+
+# Graph
+plt.figure(figsize=(12,8))
+
+# Plot clustered data
+scatter = plt.scatter(
+    x[:,0],
+    x[:,1],
+    c=labels,
+    cmap='viridis',
+    s=50
+)
+
+# Plot centroids
+plt.scatter(
+    centers[:,0],
+    centers[:,1],
+    color='red',
+    marker='X',
+    s=300,
+    label='Centroids'
+)
+
+# Annotate centroids
+for i, center in enumerate(centers):
+    plt.text(center[0],
+             center[1],
+             f'Centroid {i}',
+             fontsize=20,
+             color='black')
+
+# Labels and title
+plt.title("K-Means Clustering on Wisconsin Breast Cancer Dataset")
+
+plt.xlabel("Principal Component 1"
+          )
+
+plt.ylabel("Principal Component 2")
+
+# Grid
+plt.grid(True)
+
+# Legend
+plt.legend()
+# Show graph
+plt.show()
