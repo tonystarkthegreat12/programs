@@ -1,0 +1,27 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+# Data
+X = np.array([[1],[2],[3],[4],[5]])
+y = np.array([1.2,1.8,2.6,3.2,3.8])
+
+# Train model
+model = LinearRegression()
+model.fit(X, y)
+
+# Prediction
+y_pred = model.predict(X)
+
+# Output
+print("Slope:", round(model.coef_[0][0], 2))
+print("Intercept:", round(model.intercept_[0], 2))
+
+# Graph
+plt.scatter(X, y, color='blue', label="Actual Data")
+plt.plot(X, y_pred, color='red', label="Regression Line")
+plt.xlabel("X")
+plt.ylabel("y")
+plt.title("Simple Linear Regression")
+plt.legend()
+plt.show()
