@@ -1,0 +1,42 @@
+import pandas as pd
+
+# Dataset
+data = {
+    'Sky': ['Sunny', 'Sunny', 'Rainy', 'Sunny'],
+    'Temp': ['Warm', 'Warm', 'Cold', 'Warm'],
+    'Humidity': ['Normal', 'High', 'High', 'Normal'],
+    'Wind': ['Strong', 'Strong', 'Strong', 'Weak'],
+    'Play': ['Yes', 'Yes', 'No', 'Yes']
+}
+
+# Create DataFrame
+df = pd.DataFrame(data)
+
+print("Dataset:\n")
+print(df)
+
+# Separate attributes and target
+x = df.iloc[:, :-1].values
+y = df.iloc[:, -1].values
+
+# Find-S Algorithm
+hypothesis = None
+
+for i in range(len(x)):
+    if y[i] == 'Yes':
+
+        # Initialize hypothesis with first positive example
+        if hypothesis is None:
+            hypothesis = x[i].copy()
+
+        # Generalize hypothesis
+        else:
+            for j in range(len(hypothesis)):
+                if hypothesis[j] != x[i][j]:
+                    hypothesis[j] = '?'
+
+        print(f"\nStep {i+1} Hypothesis: {hypothesis}")
+
+# Final hypothesis
+print("\nFinal Hypothesis:")
+print(hypothesis)
