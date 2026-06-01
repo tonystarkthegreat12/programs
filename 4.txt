@@ -1,0 +1,64 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsClassifier
+
+# Input data with 2 features
+x = np.array([
+    [1,2],
+    [2,3],
+    [3,3],
+    [6,7],
+    [7,8],
+    [8,8]
+])
+
+# Class labels
+y = np.array([0,0,0,1,1,1])
+
+# Create KNN model
+knn = KNeighborsClassifier(n_neighbors=3)
+
+# Train model
+knn.fit(x, y)
+
+# Test points
+x_test = np.array([
+    [2,2],
+    [7,7]
+])
+
+# Predict classes
+y_pred = knn.predict(x_test)
+
+# Output
+print("Predicted Classes:")
+for i in range(len(x_test)):
+    print(x_test[i], "-> Class", y_pred[i])
+
+# Plot Class 0
+plt.scatter(x[y==0][:,0],
+            x[y==0][:,1],
+            color='blue',
+            label='Class 0')
+
+# Plot Class 1
+plt.scatter(x[y==1][:,0],
+            x[y==1][:,1],
+            color='green',
+            label='Class 1')
+
+# Plot test points
+plt.scatter(x_test[:,0],
+            x_test[:,1],
+            color='red',
+            marker='x',
+            s=100,
+            label='Predicted')
+
+# Labels and title
+plt.title("KNN with 2 Features")
+plt.xlabel("Feature 1")
+plt.ylabel("Feature 2")
+
+plt.legend()
+plt.show()
